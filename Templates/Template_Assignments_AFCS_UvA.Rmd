@@ -1,0 +1,182 @@
+---
+header-includes:
+- \usepackage{xcolor}
+- \usepackage{color} 
+- \usepackage{fancyhdr,color}
+- \usepackage{lipsum}
+- \fancyfoot[CE] {\thepage}
+title: "**Assignment 1,2\n &nbsp;  \n Team X**"
+subtitle: "Applied Forecasting in Complex Systems 2022"
+author: Jan Smith (ID number) and Bob Lee (ID number)
+date: "University of Amsterdam \n &nbsp;  \n November, 7, 2022 "
+output: pdf_document
+fontsize: 11pt
+highlight: tango
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  dev.args = list(pointsize = 11)
+)
+options(digits = 3, width = 60)
+library(fpp3)
+library(latex2exp)
+```
+## Introduction to R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. R Markdown files permit you to interweave R code with ordinary text to produce well-formatted data analysis reports that are easy to modify. The R Markdown file itself shows the readers exactly how you got the results in your report.
+For more details on using R Markdown see [http://rmarkdown.rstudio.com](http://rmarkdown.rstudio.com).
+
+When you click the **Knit** button, a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+For inline R code, surround code with back ticks and r. R replaces inline code with its results. For example, two plus one is `r 2+1`;
+for the build-in R dataset `cars`, there were `r nrow(cars)` 
+cars studied. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+```
+
+### Figures
+
+You can also embed plots, for example:
+
+```{r,echo=FALSE,fig.height=3.5}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot. Use knitr options to style the output of a chunk. Place options in brackets above the chunk.
+Other options with the defaults are: the `eval=FALSE` option just displays the R code (and does not run it); `warning=TRUE` whether to display warnings; `tidy=TRUE` wraps long code so it does not run off the page.
+
+You can control the size and placement of figures. For example, 
+you can put two figures (or more) next to each other. 
+Use `par(mfrow=c(n,m))` to create `n` by `m` plots in one picture in R.
+You can adjust the proportions of figures by using the `fig.width` 
+and `fig.height` chunk options. These are specified in inches, 
+and will be automatically scaled down to fit within the handout margin.
+Chunk option `fig.align`  takes values `left`, `right`, or `center` 
+(to align figures in the output document).
+
+```{r,fig.margin = TRUE,fig.width=6,fig.height=3,fig.align="center"}
+par(mfrow=c(1,2)); x1=rnorm(50); hist(x1); qqnorm(x1)
+```
+
+You can arrange for figures to span across the entire page by using 
+the `fig.fullwidth` chunk option. 
+
+```{r,fig.fullwidth=TRUE,fig.height=3}
+plot(iris$Sepal.Length,iris$Petal.Length,xlab="Sepal.Length",ylab="Petal.Length")
+```
+
+More about chunk options can be found at [\textcolor{blue}{https://yihui.name/knitr/options/}](https://yihui.name/knitr/options/).
+
+### Equations
+
+You can also include \LaTeX\ expessions/equations in your report:
+inline $\frac{d}{dx}\left(\int_{0}^{x} f(u)\,du\right)=f(x)$ and 
+in the display mode:
+\[
+\frac{d}{dx}\left( \int_{0}^{x} f(u)\,du\right)=f(x).
+\]
+ 
+### Footnotes
+
+Here is the use of a footnote^[This is a footnote.]. 
+
+### Images
+Want an image? This will do it. 
+To depict an image (say, `my_image.jpg` which should be in your current working directory), use this command 
+
+<!-- ![caption for my image](my_image.jpg) -->
+
+### Tables
+
+Want a table? This will create one (note that the separators 
+*do not* have to be aligned).
+
+Table Header  | Second Header
+------------- | -------------
+Table Cell    | Cell 2
+Cell 3        | Cell 4 
+
+
+You can also make table by using knit's `kable` function:
+
+```{r echo=FALSE, results='asis'}
+library(knitr)
+kable(mtcars[1:5,],caption="A knit kable.")
+```
+
+### Block quote
+> This will create a block quote, 
+> if you want one.
+
+### Verbatim
+```
+This text is displayed verbatim/preformatted.
+```
+
+### Links
+Links: http://example.com, [in-text link to Google](http://google.com),
+[linked phrase](http://example.com).
+
+### Italicized and embolded text
+- Single asterisks italicize text *like this*. 
+- Double asterisks embolden text **like this**.
+
+One more way: _italic_ and __bold__.
+
+***
+
+
+## **Exercise 1**\
+**1.a)**
+This template was made for the elective course to data science track. In this section we explain some of the conventions which should be followed for answering theory questions, and how you should organize the report when explaining the experimental part of the assignment. Here are some general rules of the report who have to hand in:
+
+> The `aus_arrivals` data set comprises quarterly international arrivals (in thousands) to Australia from Japan, New Zealand, UK and the US. Use `autoplot()`, `gg_season()` and `gg_subseries()` to compare the differences between the arrivals from these four countries. Can you identify any unusual observations?
+
+```{r, fig.height = 3, fig.width = 6, fig.align = "center"}
+aus_arrivals %>% autoplot(Arrivals)
+```
+
+Generally the number of arrivals to Australia is increasing over the entire series, with the exception of Japanese visitors which begin to decline after 1995. The series appear to have a seasonal pattern which varies proportionately to the number of arrivals. Interestingly, the number of visitors from NZ peaks sharply in 1988. The seasonal pattern from Japan appears to change substantially.
+
+```{r, fig.height = 6, fig.width = 6, fig.align = "center"}
+aus_arrivals %>% gg_season(Arrivals, labels = "both")
+```
+
+The seasonal pattern of arrivals appears to vary between each country. In particular, arrivals from the UK appears to be lowest in Q2 and Q3, and increase substantially for Q4 and Q1. Whereas for NZ visitors, the lowest period of arrivals is in Q1, and highest in Q3. Similar variations can be seen for Japan and US.
+
+```{r, fig.height = 3, fig.width = 6, fig.align = "center"}
+aus_arrivals %>% gg_subseries(Arrivals)
+```
+
+The subseries plot reveals more interesting features. It is evident that whilst the UK arrivals is increasing, most of this increase is seasonal. More arrivals are coming during Q1 and Q4, whilst the increase in Q2 and Q3 is less extreme. The growth in arrivals from NZ and US appears fairly similar across all quarters. There exists an unusual spike in arrivals from the US in 1992 Q3.
+
+Unusual observations:
+
+  - 2000 Q3: Spikes from the US (Sydney Olympics arrivals)
+  - 2001 Q3-Q4 are unusual for US (9/11 effect)
+  - 1991 Q3 is unusual for the US (Gulf war effect?)
+  
+  
+Plotting 2 consecutive figures to reduce space
+```{r, figures-side, fig.show="hold", out.width="50%"}
+par(mar = c(4, 4, .1, .1))
+aus_arrivals %>% gg_subseries(Arrivals)
+aus_arrivals %>% gg_season(Arrivals, labels = "both")
+```
+
+## Appendices
+
+Note that in the appendix, sections are lettered, not numbered. This document has two appendices, demonstrating the section and subsection identification method.
+
+## References
+
+Hyndman,R J Athanasopoulos G 2021 Forecasting principles and practice, 2nd edition, OTexts Melbourne, Australia Online version [https://otexts.com/fpp3/](https://otexts.com/fpp3/)
+
+Chatfield C. 2001, Time series forecasting Chapman Hall/CRC.
+
+RCore Team 2016 R A Language and Environment for Statistical Computing Vienna, Austria R Foundation for Statistical Computing [https://www.r-project.org/](https://www.r-project.org/)
