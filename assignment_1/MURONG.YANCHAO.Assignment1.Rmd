@@ -122,3 +122,60 @@ aus_production %>%
 ```
 
 We applied the box cox transformation to make a constant variation with the level of the series.
+
+
+
+## **Exercise 3**\
+
+**3.1)**
+We took the aus_retail data until 2014 and leave the last 4 years as test data. A calendar transformation has also been done to remove calendar variation effect.
+```{r}
+aus_train = aus_retail %>% 
+  filter(Industry == "Takeaway food services") %>% 
+  filter_index(.~"2014-12") %>% 
+  mutate(daysofmonth = days_in_month(as_date(Month)))  %>% 
+  mutate(Turnover = Turnover/daysofmonth)  %>% 
+  summarise(Turnover = sum(Turnover))
+
+aus_all = aus_retail %>% 
+  filter(Industry == "Takeaway food services") %>% 
+  mutate(daysofmonth = days_in_month(as_date(Month)))  %>% 
+  mutate(Turnover = Turnover/daysofmonth)  %>% 
+  summarise(Turnover = sum(Turnover))
+```
+
+
+**3.2)**
+Mean, Naive, Seasonal Naive and Drift are benchmarked here. 
+```{r}
+aus_fit <- aus_train %>%
+  model(
+    Mean = MEAN(Turnover),
+    `Naïve` = NAIVE(Turnover),
+    `Seasonal naïve` = SNAIVE(Turnover),
+    Drift = RW(Turnover ~ drift())
+  )
+
+aus_fc <- aus_fit %>%
+  forecast(h = 48)
+
+aus_fc %>%
+  autoplot(aus_all,level = NULL)
+```
+
+**3.3)**
+
+```{r}
+accuracy(aus_fc, aus_all)
+```
+As we are comparing forecast methods applied to a single time series, we consider using MAE and RMSE. Clearly, Drift turns out to be the best forecasting method.
+
+```{r}
+augment(aus_fit) %>%
+  filter(.model == "Drift")  %>%
+  select(.innov)  %>%
+  ACF(.innov,lag_max = 200) %>%
+  autoplot()
+```
+
+
