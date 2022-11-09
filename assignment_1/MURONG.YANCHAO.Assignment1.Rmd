@@ -128,7 +128,7 @@ We applied the box cox transformation to make a constant variation with the leve
 ## **Exercise 3**\
 
 **3.1)**
-We took the aus_retail data until 2014 and leave the last 4 years as test data. A calendar transformation has also been done to remove calendar variation effect.
+We took the aus_retail data until 2014 and leave the last 4 years as test data. A calendar transformation has also been done to remove calendar variation effect. We have calculated the lambda of boxcox transformation as we also observed increasing variation along with the timeline.  
 ```{r}
 aus_train = aus_retail %>% 
   filter(Industry == "Takeaway food services") %>% 
@@ -142,25 +142,44 @@ aus_all = aus_retail %>%
   mutate(daysofmonth = days_in_month(as_date(Month)))  %>% 
   mutate(Turnover = Turnover/daysofmonth)  %>% 
   summarise(Turnover = sum(Turnover))
+
+lambda <- aus_train %>%
+  features(Turnover, features = guerrero) %>%
+  pull(lambda_guerrero)
+
+aus_all_transformed = aus_all %>% 
+  mutate(Turnover = box_cox(Turnover,lambda))
+
+aus_train_transformed = aus_all %>% 
+  mutate(Turnover = box_cox(Turnover,lambda))
 ```
 
 
 **3.2)**
-Mean, Naive, Seasonal Naive and Drift are benchmarked here. 
+Mean, Naive, Seasonal Naive, Drift and STLF(decomposition model) are benchmarked here. Note we have applied box-cox transformation when we train the model.
 ```{r}
 aus_fit <- aus_train %>%
   model(
-    Mean = MEAN(Turnover),
-    `Naïve` = NAIVE(Turnover),
-    `Seasonal naïve` = SNAIVE(Turnover),
-    Drift = RW(Turnover ~ drift())
+    Mean = MEAN(box_cox(Turnover,lambda)),
+    `Naïve` = NAIVE(box_cox(Turnover,lambda)),
+    `Seasonal naïve` = SNAIVE(box_cox(Turnover,lambda)),
+    Drift = RW(box_cox(Turnover,lambda) ~ drift()),
+    STLF = decomposition_model(
+      STL(box_cox(Turnover,lambda) ~ trend(window = 15) + season(window = 5), robust = TRUE),
+      RW(season_adjust ~ drift())
+    )
   )
 
 aus_fc <- aus_fit %>%
   forecast(h = 48)
 
 aus_fc %>%
-  autoplot(aus_all,level = NULL)
+  autoplot(aus_all,level = NULL) +
+  labs(
+    y = "Average Daily Turnover per Month",
+    title = "Turnover Forecasts for 2015-2018"
+  ) +
+  guides(colour = guide_legend(title = "Forecast"))
 ```
 
 **3.3)**
@@ -168,14 +187,20 @@ aus_fc %>%
 ```{r}
 accuracy(aus_fc, aus_all)
 ```
-As we are comparing forecast methods applied to a single time series, we consider using MAE and RMSE. Clearly, Drift turns out to be the best forecasting method.
+As we are comparing forecast methods applied to a single time series, we consider using MAE and RMSE. Clearly, STLF(decomposition model) turns out to be the best forecasting method.
 
 ```{r}
-augment(aus_fit) %>%
-  filter(.model == "Drift")  %>%
-  select(.innov)  %>%
-  ACF(.innov,lag_max = 200) %>%
-  autoplot()
+aus_train %>%
+  model(STLF = decomposition_model(
+      STL(box_cox(Turnover,lambda) ~ trend(window = 15) + season(window = 5), robust = TRUE),
+      RW(season_adjust ~ drift())
+    )) %>%
+  gg_tsresiduals(type = "innovation",lag_max=100)
 ```
+By producing residual diagnostic graphs of STLF models, we see that 
 
+1) Innovation residuals shows a relatively constant variance along the time axis. 
+2) The innovation residuals have zero mean indicating that it is not biased.
+3) The ACF graph also show a white noise pattern indicating that the innovation residuals are uncorrelated.  
+4) The innovation residuals are normally distributed.
 

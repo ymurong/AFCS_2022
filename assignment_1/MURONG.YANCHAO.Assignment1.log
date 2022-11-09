@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.11.1)  8 NOV 2022 21:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.11.1)  9 NOV 2022 12:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -532,38 +532,48 @@ Underfull \hbox (badness 10000) in paragraph at lines 283--283
  []
 
 [5 <./MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-6-1.pdf> <./MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-6-2.pdf>]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 314.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 321.
 (/Users/yanchao/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 <MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-8-1.pdf, id=118, 453.695pt x 313.17pt>
 File: MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
 <use MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 327.
+Package pdftex.def Info: MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-8-1.pdf  used on input line 338.
 (pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
-[6 <./MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-8-1.pdf>]
-<MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-10-1.pdf, id=131, 459.7175pt x 315.1775pt>
+[6]
+<MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-10-1.pdf, id=124, 459.7175pt x 315.1775pt>
 File: MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-10-1.pdf Graphic file (type pdf)
 <use MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 362.
+Package pdftex.def Info: MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-10-1.pdf  used on input line 374.
 (pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
-[7 <./MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-10-1.pdf>] (./MURONG.YANCHAO.Assignment1.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 374--376
+[][]
+ []
+
+[7 <./MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-8-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 387--390
+
+ []
+
+[8 <./MURONG.YANCHAO.Assignment1_files/figure-latex/unnamed-chunk-10-1.pdf>] (./MURONG.YANCHAO.Assignment1.aux)
 Package rerunfilecheck Info: File `MURONG.YANCHAO.Assignment1.out' has not changed.
 (rerunfilecheck)             Checksum: 7654BF24AFD738E34100DA4CC7FFB5AC;315.
  ) 
 Here is how much of TeX's memory you used:
- 12049 strings out of 477026
- 196587 string characters out of 5827154
+ 12054 strings out of 477026
+ 196617 string characters out of 5827154
  625271 words of memory out of 5000000
  32988 multiletter control sequences out of 15000+600000
  500438 words of font info for 53 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,6n,77p,365b,578s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,6n,77p,418b,474s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/Users/yanchao/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/Users/yanchao/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</Users/yanchao/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></Users/yanchao/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Users/yanchao/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/yanchao/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></Users/yanchao/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on MURONG.YANCHAO.Assignment1.pdf (7 pages, 222048 bytes).
+Output written on MURONG.YANCHAO.Assignment1.pdf (8 pages, 251955 bytes).
 PDF statistics:
- 178 PDF objects out of 1000 (max. 8388607)
- 123 compressed objects within 2 object streams
- 14 named destinations out of 1000 (max. 500000)
+ 187 PDF objects out of 1000 (max. 8388607)
+ 131 compressed objects within 2 object streams
+ 19 named destinations out of 1000 (max. 500000)
  80 words of extra memory for PDF output out of 10000 (max. 10000000)
 
