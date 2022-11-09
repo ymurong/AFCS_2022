@@ -43,7 +43,7 @@ pigs %>% ACF(Count, lag_max = 100) %>%
   autoplot() +
   labs(title = "Autocorrealtion", y = "")
 ```
-For white noise series, we expect each autocorrelation to be close to zero and less than 5% of splikes should be outside the blue bounds. However, from the above figure on the right, the values slowly decrease as the lags increase and we observe a lot of autocorrealtion coefficients lie outside the bounds. As a matter of fact, the ACF figure actually demontrates trends and seasonality caracteristics. 
+For white noise series, we expect each autocorrelation to be close to zero and less than 5% of spikes should be outside the blue bounds. However, from the above figure on the right, the values slowly decrease as the lags increase and we observe a lot of auto-correaltion coefficients lie outside the bounds. As a matter of fact, the ACF figure actually demonstrates trends and seasonality characteristics. 
 
 
 **1.3)**
@@ -78,7 +78,7 @@ global_economy %>%
   labs(title= "GDP per capita", y = "$US")
 ```
 
-We have done population adjustments and removed the population effect from the increase of GDP. 
+We have done population adjustments and removed the population effect from the increase of GDP. Now the GDP per capita describes the GDP variance without the population effect.
 
 
 
@@ -128,7 +128,7 @@ We applied the box cox transformation to make a constant variation with the leve
 ## **Exercise 3**\
 
 **3.1)**
-We took the aus_retail data until 2014 and leave the last 4 years as test data. A calendar transformation has also been done to remove calendar variation effect. We have calculated the lambda of boxcox transformation as we also observed increasing variation along with the timeline.  
+We took the aus_retail data until 2014 and leave the last 4 years as test data. A calendar transformation has also been done to remove calendar variation effect. We have also calculated the lambda of box-cox transformation as we also observed increasing variation along with the timeline.  
 ```{r}
 aus_train = aus_retail %>% 
   filter(Industry == "Takeaway food services") %>% 
@@ -156,7 +156,7 @@ aus_train_transformed = aus_all %>%
 
 
 **3.2)**
-Mean, Naive, Seasonal Naive, Drift and STLF(decomposition model) are benchmarked here. Note we have applied box-cox transformation when we train the model.
+Mean, Naive, Seasonal Naive, Drift and STLF(decomposition model) are bench marked here. Note we have applied box-cox transformation when we train the model.
 ```{r}
 aus_fit <- aus_train %>%
   model(
